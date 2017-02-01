@@ -219,10 +219,15 @@ func installCloudConfig(gadgetDir string) error {
 	if osutil.FileExists(cloudConfig) {
 		dst := filepath.Join(cloudDir, "cloud.cfg")
 		err = osutil.CopyFile(cloudConfig, dst, osutil.CopyFlagOverwrite)
-	} else {
-		dst := filepath.Join(cloudDir, "cloud-init.disabled")
-		err = osutil.AtomicWriteFile(dst, nil, 0644, 0)
 	}
+	if err != nil {
+		return err
+	}
+	// Always use ds-identify to disable cloud-init if no datasource is found
+	dsIdenfity := []bytes("not_found_behavior: disable\n")
+	dst := filepath.Join(cloudDir, "ds-identify.cfg")
+	err = osutil.AtomicWriteFile(dst, dsIdentify, 0644, 0)
+
 	return err
 }
 

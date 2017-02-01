@@ -531,7 +531,7 @@ func (s *imageSuite) TestBootstrapToRootDirLocalCore(c *C) {
 	c.Check(m["snap_core"], Equals, "core_x1.snap")
 
 	// check that cloud-init is setup correctly
-	c.Check(osutil.FileExists(filepath.Join(rootdir, "etc/cloud/cloud-init.disabled")), Equals, true)
+	c.Check(osutil.FileExists(filepath.Join(rootdir, "etc/cloud/ds-identify.cfg")), Equals, true)
 }
 
 func (s *imageSuite) TestBootstrapToRootDirDevmodeSnap(c *C) {
@@ -605,7 +605,7 @@ func (s *imageSuite) TestInstallCloudConfigNoConfig(c *C) {
 	dirs.SetRootDir(targetDir)
 	err := image.InstallCloudConfig(emptyGadgetDir)
 	c.Assert(err, IsNil)
-	c.Check(osutil.FileExists(filepath.Join(targetDir, "etc/cloud/cloud-init.disabled")), Equals, true)
+	c.Check(osutil.FileExists(filepath.Join(targetDir, "etc/cloud/ds-identify.cfg")), Equals, true)
 }
 
 func (s *imageSuite) TestInstallCloudConfigWithCloudConfig(c *C) {
