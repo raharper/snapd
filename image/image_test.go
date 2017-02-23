@@ -552,7 +552,7 @@ func (s *imageSuite) TestBootstrapToRootDirLocalCoreBrandKernel(c *C) {
 	c.Check(m["snap_core"], Equals, "core_x1.snap")
 
 	// check that cloud-init is setup correctly
-	c.Check(osutil.FileExists(filepath.Join(rootdir, "etc/cloud/cloud-init.disabled")), Equals, true)
+	c.Check(osutil.FileExists(filepath.Join(rootdir, "etc/cloud/ds-identify.cfg")), Equals, true)
 
 	c.Check(s.stderr.String(), Equals, "WARNING: \"core\", \"required-snap1\" were installed from local snaps disconnected from a store and cannot be refreshed subsequently!\n")
 }
@@ -662,7 +662,7 @@ func (s *imageSuite) TestInstallCloudConfigNoConfig(c *C) {
 	dirs.SetRootDir(targetDir)
 	err := image.InstallCloudConfig(emptyGadgetDir)
 	c.Assert(err, IsNil)
-	c.Check(osutil.FileExists(filepath.Join(targetDir, "etc/cloud/cloud-init.disabled")), Equals, true)
+	c.Check(osutil.FileExists(filepath.Join(targetDir, "etc/cloud/ds-identify.cfg")), Equals, true)
 }
 
 func (s *imageSuite) TestInstallCloudConfigWithCloudConfig(c *C) {
