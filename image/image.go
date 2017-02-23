@@ -233,6 +233,7 @@ func installCloudConfig(gadgetDir string) error {
 		dst := filepath.Join(cloudDir, "cloud.cfg")
 		err = osutil.CopyFile(cloudConfig, dst, osutil.CopyFlagOverwrite)
 	}
+
 	if err != nil {
 		return err
 	}
