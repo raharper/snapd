@@ -223,8 +223,10 @@ func installCloudConfig(gadgetDir string) error {
 	if err != nil {
 		return err
 	}
-	// Always use ds-identify to disable cloud-init if no datasource is found
-	dsIdentify := []bytes("not_found_behavior: disable\n")
+	// Always use cloud-init/ds-identify to control when cloud-init runs
+    // This setting ensures that cloud-init only runs if it finds a
+    // datasource available
+	dsIdentify := []bytes("policy search,found=first,maybe=all,notfound=disabled\n")
 	dst := filepath.Join(cloudDir, "ds-identify.cfg")
 	err = osutil.AtomicWriteFile(dst, dsIdentify, 0644, 0)
 
