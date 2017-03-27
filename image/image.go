@@ -240,7 +240,7 @@ func installCloudConfig(gadgetDir string) error {
 	// Always use cloud-init/ds-identify to control when cloud-init runs
 	// This setting ensures that cloud-init only runs if it finds a
 	// datasource available
-	dsIdentify := []byte("policy search,found=first,maybe=all,notfound=disabled\n")
+	dsIdentify := []byte("policy: search,found=first,maybe=all,notfound=disabled\n")
 	dst := filepath.Join(cloudDir, "ds-identify.cfg")
 	err = osutil.AtomicWriteFile(dst, dsIdentify, 0644, 0)
 
